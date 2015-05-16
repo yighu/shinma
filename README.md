@@ -1,0 +1,2 @@
+# shinma
+shinma Bible app
