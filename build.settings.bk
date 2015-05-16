@@ -1,0 +1,68 @@
+
+settings =
+{
+	orientation =
+	{
+		default = "portrait",
+		supported = { "portrait" }
+	},
+	android =
+	{
+		usesPermissions =
+		{
+			"android.permission.INTERNET",
+		},
+	},
+	plugins =
+	{
+		-- This section is only required for builds > 2014.2430
+		["facebook"] =
+		{
+			publisherId = "com.coronalabs",
+		},
+		--[[ This section is only required for builds > 2014.2165
+		["facebook"] =
+		{
+			publisherId = "com.coronalabs",
+			supportedPlatforms = { iphone = true, ["iphone-sim"] = true },
+		},--]]
+	},
+	iphone =
+	{
+		plist =
+		{
+			CFBundleIconFiles =
+			{
+				"Icon.png", 
+				"Icon@2x.png", 
+				"Icon-60.png",
+				"Icon-60@2x.png",
+				"Icon-60@3x.png",
+				"Icon-72.png", 
+				"Icon-72@2x.png",
+				"Icon-76.png",
+				"Icon-76@2x.png", 
+				"Icon-Small.png", 
+				"Icon-Small@2x.png",
+				"Icon-Small@3x.png",
+				"Icon-Small-40.png",
+				"Icon-Small-40@2x.png",
+				"Icon-Small-50.png", 
+				"Icon-Small-50@2x.png",
+			},
+			UIApplicationExitsOnSuspend = false,
+			FacebookAppID = "1622244821333488",
+
+			CFBundleURLTypes =
+			{
+				{
+					CFBundleURLSchemes =
+					{
+						"fb1622244821333488",	
+						
+					}
+				}
+			}
+		}
+	}
+}

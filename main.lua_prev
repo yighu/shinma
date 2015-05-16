@@ -1,0 +1,117 @@
+
+require "sqlite3"
+a={}
+a[1]={}
+a[1][1]=233
+a[1][2]="神的属性"
+a[1][3]="停下来思想有关神的位格，能力，和完美"
+a[2]={}
+a[2][1]=342
+a[2][2]="神的工作"
+a[2][3]="停下来思想神奇妙工作的伟大"
+a[3]={}
+a[3][1]=516
+a[3][2]="我同神的关系"
+a[3][3]="停下来为你在基督耶稣里所享受的关系感谢神"
+a[4]={}
+a[4][1]=370
+a[4][2]="我要培养的品格"
+a[4][3]="停下来请求神赐给你恩典成长敬虔的品格"
+a[5]={}
+a[5][1]=203
+a[5][2]="我同别人的关系"
+a[5][3]="停下来反思你同他人的关系，并将他们交托给神"
+fontsize=16*2
+titley0=50
+titley1=300
+ratiow=1.8
+ratiot=0.5
+nextpage="prayscript11"
+prevpage="prayscript53"
+setVerse=function()
+local path = system.pathForFile("pray.db", system.ResourceDirectory)
+db = sqlite3.open( path )   
+for i=1,5 do
+local v=math.random(a[i][1])
+for row in db:nrows("SELECT bible FROM closet where type="..i.." and id="..v) do
+  a[i][4]= row.bible
+end
+v=math.random(a[i][1])
+for row in db:nrows("SELECT bible FROM closet where type="..i.." and id="..v) do
+  a[i][5]= row.bible
+end
+end
+db:close()
+end
+setVerse()
+
+touchtocontinue="按一下屏幕继续"
+	text3 = display.newText( touchtocontinue, 0, 0, native.systemFontBold, 18 )
+	text3:setFillColor( 255 ); text3.isVisible = true
+	text3.x, text3.y = display.contentWidth * 0.5, display.contentHeight - 100
+
+display.setStatusBar( display.HiddenStatusBar )
+
+local composer = require "composer"
+
+local widget = require "widget"
+
+composer.gotoScene( "prayscript11", "fade", 400 )
+
+local tabButtons = 
+{
+	{ 
+		width = 32,
+		height = 32,
+		defaultFile = "icon1.png",
+		overFile = "icon1-down.png",
+		label = "祷告",
+    onPress = function() composer.gotoScene( "prayscript11" ); end, 
+
+		selected = true,
+
+	},
+	{ 
+		width = 32,
+		height = 32,
+		defaultFile = "icon1.png",
+		overFile = "icon1-down.png",
+		label = "刷新",
+    		onPress = function () 
+				setVerse()
+    				composer.gotoScene( "prayscript11","fade",400 )
+		 end, 
+
+	},
+	{ 
+		width = 32,
+		height = 32,
+		defaultFile = "icon2.png",
+		overFile = "icon2-down.png",
+		label = "信息",
+    onPress = function() composer.gotoScene( "about" ); end, 
+	},
+	{ 
+		width = 32,
+		height = 32,
+		defaultFile = "icon2.png",
+		overFile = "icon2-down.png",
+		label = "分享",
+    		onPress = function() composer.gotoScene( "sharing" ); end, 
+	}
+}
+
+local tabBar = widget.newTabBar
+{
+	top = display.contentHeight-50,
+	width = display.contentWidth,
+	backgroundFile = "tabbar.png",
+	tabSelectedLeftFile = "tabBar_tabSelectedLeft.png",
+	tabSelectedMiddleFile = "tabBar_tabSelectedMiddle.png",
+	tabSelectedRightFile = "tabBar_tabSelectedRight.png",
+	tabSelectedFrameWidth = 32,
+	tabSelectedFrameHeight = 32,
+	buttons = tabButtons
+}
+
+
