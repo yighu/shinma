@@ -1,5 +1,6 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
+local sceneGroup 
 
 local image, text1, text2  
 
@@ -17,8 +18,9 @@ end
 
 
 -- Called when the scene's view does not exist:
+--http://stackoverflow.com/questions/21073486/attempt-to-index-global-group-a-nil-value-lua
 function scene:create( event )
-	local sceneGroup = self.view
+	sceneGroup = self.view
 	image = display.newImage( "bg.jpg" )
 	image.x = display.contentCenterX
 	image.y = display.contentCenterY
@@ -37,14 +39,18 @@ function scene:show( event )
 			--if not image then
 				image:addEventListener( "touch", image )
 			--else
-				--image = display.newImage( "bg.jpg" )
-				--image.x = display.contentCenterX
-				--image.y = display.contentCenterY
-				--image:addEventListener( "touch", image )
+				image = display.newImage( "bg.jpg" )
+				image.x = display.contentCenterX
+				image.y = display.contentCenterY
+				image:addEventListener( "touch", image )
+	sceneGroup:insert( image )
+	image.touch = onSceneTouch
+	sceneGroup:insert( text1 )
+	sceneGroup:insert( text2 )
 			--end
 		end
 		memTimer = timer.performWithDelay( 0, showMem, 1 )
-	local sceneGroup = self.view
+	--local sceneGroup = self.view
 	text1 = display.newText( a[1][2], 0, 0, native.systemFontBold, 24 )
 	text1:setFillColor( text_R,text_G,text_B)
 	text1.x, text1.y = display.contentWidth * ratiot, titley0
@@ -68,7 +74,7 @@ function scene:hide( event )
 	
 		timer.cancel( memTimer ); memTimer = nil;
 	
-	local sceneGroup = self.view
+	--local sceneGroup = self.view
 	sceneGroup:remove( text1 )
 	sceneGroup:remove( text2 )
 	

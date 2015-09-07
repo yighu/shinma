@@ -176,6 +176,18 @@ local feedEmail = widget.newButton
 feedEmail.x = display.contentWidth/2
 feedEmail.y = display.contentHeight - hspace -startbar
 
+--local sinaWeibo = widget.newButton
+--{
+--        left = 0,
+--        top = 0,
+ --       width = 298,
+--        height = 56,
+--        label = "发布到新浪微博",
+--        onRelease = onSinaWeibo
+--}
+--sinaWeibo.x = display.contentWidth/2
+--sinaWeibo.y = display.contentHeight - 5*hspace-startbar
+
 local prayEmail = widget.newButton
 {
         left = 0,
@@ -187,6 +199,23 @@ local prayEmail = widget.newButton
 }
 prayEmail.x = display.contentWidth/2
 prayEmail.y = display.contentHeight - 4*hspace-startbar
+
+local function onSinaWeibo( event )
+   genMsg()
+	local options =
+	{
+	   to = { "1234567890" },
+	   body = msg;
+	}
+	local result = native.showPopup("weibo", options)
+
+	if not result then
+		print( "WeiBo Not supported/setup on this device" )
+		native.showAlert("警告!","这个设备不送SMS",{"好"}
+		)
+	end
+	
+end
 
 local function onSendSMS( event )
    genMsg()
@@ -273,6 +302,7 @@ function scene:hide( event )
 end
 
 function scene:destroy( event )
+
 end
 
 scene:addEventListener( "create", scene )

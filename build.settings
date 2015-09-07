@@ -18,7 +18,7 @@ settings =
             		smallScreens  = true,
             		normalScreens = true,
             		largeScreens  = true,
-            		xlargeScreens = false,
+            		xlargeScreens = true,
         	},
 	},
 	plugins =
